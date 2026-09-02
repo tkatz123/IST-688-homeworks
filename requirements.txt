@@ -1,0 +1,6 @@
+streamlit
+openai
+anthropic
+requests
+pypdf
+bs4
