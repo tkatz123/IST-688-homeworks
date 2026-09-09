@@ -65,9 +65,21 @@ if 'open_ai_client' or 'anthropic_client' not in st.session_state:
     anthropic_api_key = st.secrets.ANTHROPIC_API_KEY
     st.session_state.anthropic_client = Anthropic(api_key=anthropic_api_key)
 
-#Only start the conversation over when the URLs actually change, not on every rerun
-if st.session_state.get('loaded_urls') != (url1, url2):
-    st.session_state.loaded_urls = (url1, url2)
+llm_provider = st.sidebar.selectbox(
+    'Choose the LLM provider you would like to you.',
+    ('ChatGPT 5.6 (OpenAI)', 'Claude Opus 5 (Anthropic)')
+).lower().split(' ')[0]
+
+if llm_provider == 'chatgpt':
+    model = 'gpt-5.6'
+elif llm_provider == 'claude':
+    model = 'claude-opus-5'
+
+#Only start the conversation over when the URLs or the model actually change, not on
+#every rerun. Switching models has to wipe the memory too, otherwise the new model
+#inherits the other one's answers as context
+if st.session_state.get('loaded_config') != (url1, url2, llm_provider):
+    st.session_state.loaded_config = (url1, url2, llm_provider)
     st.session_state.pop('messages', None)
 
 if 'messages' not in st.session_state:
@@ -107,16 +119,6 @@ try:
 except AuthenticationError:
     st.info("🚨 Invalid Anthropic API Key")
     st.stop()
-
-llm_provider = st.sidebar.selectbox(
-    'Choose the LLM provider you would like to you.',
-    ('ChatGPT 5.6 (OpenAI)', 'Claude Opus 5 (Anthropic)')
-).lower().split(' ')[0]
-
-if llm_provider == 'chatgpt':
-    model = 'gpt-5.6'
-elif llm_provider == 'claude':
-    model = 'claude-opus-5'
 
 #Display every message in the conversation so far, apart from the system prompt
 for message in st.session_state.messages:
