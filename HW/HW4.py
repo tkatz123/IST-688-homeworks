@@ -173,11 +173,11 @@ if user_message:
     context = "\n\n".join(results['documents'][0])
 
     system_prompt = (
-        'You are a helpful assistant for a course. Answer the user\'s question using only '
-        'the course documents below. If the answer is not in the documents, say that you '
-        'could not find it in the course documents. If you found an answer, do not say that you could not find more information.'
+        'You are a helpful assistant for organizations at Syracuse University. Answer the user\'s question using only '
+        'the organization documents below. If the answer is not in the documents, say that you '
+        'could not find it in the organization documents. If you found an answer, do not say that you could not find more information.'
         'If the users asks a question about something previsouly mentioned in the conversation, source the answer from the conversation memory, not the documents. \n\n'
-        f'Course documents:\n\n{context}'
+        f'Organization documents:\n\n{context}'
     )
 
     #Keep only the most recent exchanges so the conversation does not grow without bound
