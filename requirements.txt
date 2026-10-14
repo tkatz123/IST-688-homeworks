@@ -6,3 +6,4 @@ pypdf
 bs4
 chromadb
 pysqlite3-binary; sys_platform == "linux"
+pandas
