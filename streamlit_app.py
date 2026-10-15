@@ -23,9 +23,14 @@ hw_4 = st.Page(
 hw_5 = st.Page(
     'HW/HW5.py',
     title = 'HW 5',
+)
+
+hw_7 = st.Page(
+    'HW/HW7.py',
+    title = 'HW 7',
     default = True
 )
 
-pg = st.navigation([hw_1, hw_2, hw_3, hw_4, hw_5])
+pg = st.navigation([hw_1, hw_2, hw_3, hw_4, hw_5, hw_7])
 st.set_page_config(page_title= 'HW Manager', page_icon=None, layout='centered', initial_sidebar_state='expanded')
 pg.run()
